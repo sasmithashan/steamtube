@@ -1,197 +1,334 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html>
-<html b:version='2'
-      xmlns='http://www.w3.org/1999/xhtml'
-      xmlns:b='http://www.google.com/2005/gml/b'
-      xmlns:data='http://www.google.com/2005/gml/data'
-      xmlns:expr='http://www.google.com/2005/gml/expr'>
-
+<html lang="en">
 <head>
-  <meta charset='UTF-8'/>
-  <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
-  <title><data:blog.title/></title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StreamTube Pro</title>
 
-  <b:skin><![CDATA[
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  body{
-    margin:0;
-    font-family: Arial, sans-serif;
-    background:#0f0f0f;
-    color:#fff;
-  }
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
 
-  /* HEADER */
-  .header{
-    height:60px;
-    background:#181818;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 16px;
-    position:sticky;
-    top:0;
-    z-index:999;
-    border-bottom:1px solid #222;
-  }
+    body {
+      background: #0f0f0f;
+      color: white;
+      overflow-x: hidden;
+    }
 
-  .logo{
-    font-size:20px;
-    font-weight:bold;
-    color:#ff0000;
-  }
+    header {
+      height: 70px;
+      background: rgba(20,20,20,0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 25px;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      border-bottom: 1px solid #222;
+    }
 
-  .search{
-    flex:1;
-    display:flex;
-    justify-content:center;
-  }
+    .left-header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
 
-  .search input{
-    width:60%;
-    padding:8px 12px;
-    border-radius:20px;
-    border:none;
-    background:#222;
-    color:#fff;
-    outline:none;
-  }
+    .menu-btn {
+      font-size: 22px;
+      cursor: pointer;
+    }
 
-  .container{
-    display:flex;
-  }
+    .logo {
+      font-size: 26px;
+      font-weight: 700;
+      color: #ff2c2c;
+      letter-spacing: 1px;
+    }
 
-  /* SIDEBAR */
-  .sidebar{
-    width:220px;
-    background:#181818;
-    min-height:100vh;
-    padding:10px;
-    position:sticky;
-    top:60px;
-  }
+    .search-container {
+      width: 45%;
+      display: flex;
+      align-items: center;
+    }
 
-  .nav-item{
-    padding:12px;
-    border-radius:10px;
-    cursor:pointer;
-    color:#ddd;
-  }
+    .search-container input {
+      flex: 1;
+      padding: 13px 18px;
+      border: 1px solid #333;
+      background: #181818;
+      color: white;
+      border-radius: 40px 0 0 40px;
+      outline: none;
+      font-size: 15px;
+    }
 
-  .nav-item:hover{
-    background:#272727;
-  }
+    .search-container button {
+      padding: 13px 22px;
+      border: none;
+      background: #ff2c2c;
+      color: white;
+      border-radius: 0 40px 40px 0;
+      cursor: pointer;
+      font-weight: 600;
+    }
 
-  /* MAIN */
-  .main{
-    flex:1;
-    padding:20px;
-  }
+    .profile {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background-image: url('https://i.pravatar.cc/100');
+      background-size: cover;
+      border: 2px solid #ff2c2c;
+    }
 
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:16px;
-  }
+    .layout {
+      display: flex;
+    }
 
-  .card{
-    background:#181818;
-    border-radius:12px;
-    overflow:hidden;
-    transition:0.2s;
-  }
+    aside {
+      width: 240px;
+      min-height: calc(100vh - 70px);
+      background: #151515;
+      padding: 25px 15px;
+      position: sticky;
+      top: 70px;
+    }
 
-  .card:hover{
-    transform:scale(1.02);
-  }
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px;
+      margin-bottom: 10px;
+      border-radius: 14px;
+      cursor: pointer;
+      transition: 0.3s;
+      color: #ddd;
+      font-weight: 500;
+    }
 
-  iframe{
-    width:100%;
-    height:180px;
-    border:none;
-  }
+    .nav-item:hover,
+    .active {
+      background: #262626;
+      color: white;
+    }
 
-  .info{
-    padding:10px;
-  }
+    main {
+      flex: 1;
+      padding: 30px;
+    }
 
-  .title{
-    font-size:15px;
-    font-weight:bold;
-    margin-bottom:5px;
-  }
+    .hero {
+      background: linear-gradient(135deg, #ff2c2c, #8b0000);
+      padding: 40px;
+      border-radius: 24px;
+      margin-bottom: 35px;
+      box-shadow: 0 10px 40px rgba(255,0,0,0.15);
+    }
 
-  .meta{
-    font-size:12px;
-    color:#aaa;
-  }
+    .hero h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
 
-  /* RESPONSIVE */
-  @media(max-width:900px){
-    .sidebar{display:none;}
-    .search input{width:90%;}
-  }
+    .hero p {
+      color: rgba(255,255,255,0.8);
+      max-width: 700px;
+      line-height: 1.6;
+    }
 
-  ]]></b:skin>
+    .section-title {
+      font-size: 24px;
+      margin-bottom: 25px;
+      font-weight: 700;
+    }
+
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 25px;
+    }
+
+    .video-card {
+      background: #181818;
+      border-radius: 22px;
+      overflow: hidden;
+      transition: 0.3s;
+      border: 1px solid #242424;
+    }
+
+    .video-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    }
+
+    .video-frame {
+      width: 100%;
+      height: 220px;
+      border: none;
+    }
+
+    .video-content {
+      padding: 18px;
+    }
+
+    .video-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      line-height: 1.4;
+    }
+
+    .channel {
+      color: #b3b3b3;
+      margin-bottom: 6px;
+      font-size: 14px;
+    }
+
+    .stats {
+      color: #777;
+      font-size: 13px;
+    }
+
+    @media(max-width: 900px) {
+      aside {
+        display: none;
+      }
+
+      .search-container {
+        width: 60%;
+      }
+
+      .hero h1 {
+        font-size: 30px;
+      }
+    }
+
+    @media(max-width: 600px) {
+      header {
+        padding: 0 12px;
+      }
+
+      .search-container {
+        width: 55%;
+      }
+
+      .search-container input {
+        font-size: 13px;
+      }
+
+      main {
+        padding: 15px;
+      }
+
+      .hero {
+        padding: 25px;
+      }
+
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
-
 <body>
 
-<!-- HEADER -->
-<div class='header'>
-  <div class='logo'>YouTube Clone</div>
-  <div class='search'>
-    <input type='text' placeholder='Search'/>
-  </div>
-  <div style='width:35px;height:35px;background:#444;border-radius:50%'></div>
-</div>
-
-<div class='container'>
-
-  <!-- SIDEBAR -->
-  <div class='sidebar'>
-    <div class='nav-item'>🏠 Home</div>
-    <div class='nav-item'>🔥 Trending</div>
-    <div class='nav-item'>📺 Subscriptions</div>
-    <div class='nav-item'>🎮 Gaming</div>
-    <div class='nav-item'>🎵 Music</div>
-  </div>
-
-  <!-- MAIN CONTENT -->
-  <div class='main'>
-
-    <div class='grid'>
-
-      <b:section id='main' showaddelement='no'>
-        <b:widget id='Blog1' type='Blog' title='Videos'>
-          <b:includable id='main'>
-
-            <b:loop values='data:posts' var='post'>
-
-              <div class='card'>
-
-                <!-- YouTube Embed from post content -->
-                <b:if cond='data:post.body contains "youtube.com"'>
-                  <iframe expr:src='data:post.body'/>
-                </b:if>
-
-                <div class='info'>
-                  <div class='title'><data:post.title/></div>
-                  <div class='meta'><data:post.dateHeader/></div>
-                </div>
-
-              </div>
-
-            </b:loop>
-
-          </b:includable>
-        </b:widget>
-      </b:section>
-
+  <header>
+    <div class="left-header">
+      <div class="menu-btn">☰</div>
+      <div class="logo">StreamTube</div>
     </div>
 
-  </div>
+    <div class="search-container">
+      <input type="text" placeholder="Search videos, creators, tutorials...">
+      <button>Search</button>
+    </div>
 
-</div>
+    <div class="profile"></div>
+  </header>
+
+  <div class="layout">
+
+    <aside>
+      <div class="nav-item active">🏠 Home</div>
+      <div class="nav-item">🔥 Trending</div>
+      <div class="nav-item">🎬 Shorts</div>
+      <div class="nav-item">📺 Subscriptions</div>
+      <div class="nav-item">🎮 Gaming</div>
+      <div class="nav-item">🎵 Music</div>
+      <div class="nav-item">💻 Coding</div>
+      <div class="nav-item">⚙ Settings</div>
+    </aside>
+
+    <main>
+
+      <section class="hero">
+        <h1>Welcome to StreamTube</h1>
+        <p>
+          A modern professional video streaming platform inspired by YouTube. 
+          Watch embedded videos directly, explore trending content, and build your own creator platform.
+        </p>
+      </section>
+
+      <h2 class="section-title">Trending Videos</h2>
+
+      <div class="video-grid">
+
+        <div class="video-card">
+          <iframe class="video-frame" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
+
+          <div class="video-content">
+            <div class="video-title">Building a Professional YouTube Clone</div>
+            <div class="channel">Code Creator</div>
+            <div class="stats">1.2M views • 3 days ago</div>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <iframe class="video-frame" src="https://www.youtube.com/embed/Ke90Tje7VS0" allowfullscreen></iframe>
+
+          <div class="video-content">
+            <div class="video-title">React JS Full Course for Beginners</div>
+            <div class="channel">Programming Hub</div>
+            <div class="stats">890K views • 1 week ago</div>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <iframe class="video-frame" src="https://www.youtube.com/embed/PkZNo7MFNFg" allowfullscreen></iframe>
+
+          <div class="video-content">
+            <div class="video-title">JavaScript Tutorial Full Course</div>
+            <div class="channel">Dev Academy</div>
+            <div class="stats">2.5M views • 2 weeks ago</div>
+          </div>
+        </div>
+
+        <div class="video-card">
+          <iframe class="video-frame" src="https://www.youtube.com/embed/UB1O30fR-EE" allowfullscreen></iframe>
+
+          <div class="video-content">
+            <div class="video-title">Learn HTML & CSS Fast</div>
+            <div class="channel">Frontend Mastery</div>
+            <div class="stats">540K views • 5 days ago</div>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
 
 </body>
 </html>
