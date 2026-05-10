@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html>
+<html b:version='2'
+      xmlns='http://www.w3.org/1999/xhtml'
+      xmlns:b='http://www.google.com/2005/gml/b'
+      xmlns:data='http://www.google.com/2005/gml/data'
+      xmlns:expr='http://www.google.com/2005/gml/expr'>
+
+<head>
+  <meta charset='UTF-8'/>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'/>
+  <title><data:blog.title/></title>
+
+  <b:skin><![CDATA[
+
+  body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background:#0f0f0f;
+    color:#fff;
+  }
+
+  /* HEADER */
+  .header{
+    height:60px;
+    background:#181818;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 16px;
+    position:sticky;
+    top:0;
+    z-index:999;
+    border-bottom:1px solid #222;
+  }
+
+  .logo{
+    font-size:20px;
+    font-weight:bold;
+    color:#ff0000;
+  }
+
+  .search{
+    flex:1;
+    display:flex;
+    justify-content:center;
+  }
+
+  .search input{
+    width:60%;
+    padding:8px 12px;
+    border-radius:20px;
+    border:none;
+    background:#222;
+    color:#fff;
+    outline:none;
+  }
+
+  .container{
+    display:flex;
+  }
+
+  /* SIDEBAR */
+  .sidebar{
+    width:220px;
+    background:#181818;
+    min-height:100vh;
+    padding:10px;
+    position:sticky;
+    top:60px;
+  }
+
+  .nav-item{
+    padding:12px;
+    border-radius:10px;
+    cursor:pointer;
+    color:#ddd;
+  }
+
+  .nav-item:hover{
+    background:#272727;
+  }
+
+  /* MAIN */
+  .main{
+    flex:1;
+    padding:20px;
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:16px;
+  }
+
+  .card{
+    background:#181818;
+    border-radius:12px;
+    overflow:hidden;
+    transition:0.2s;
+  }
+
+  .card:hover{
+    transform:scale(1.02);
+  }
+
+  iframe{
+    width:100%;
+    height:180px;
+    border:none;
+  }
+
+  .info{
+    padding:10px;
+  }
+
+  .title{
+    font-size:15px;
+    font-weight:bold;
+    margin-bottom:5px;
+  }
+
+  .meta{
+    font-size:12px;
+    color:#aaa;
+  }
+
+  /* RESPONSIVE */
+  @media(max-width:900px){
+    .sidebar{display:none;}
+    .search input{width:90%;}
+  }
+
+  ]]></b:skin>
+</head>
+
+<body>
+
+<!-- HEADER -->
+<div class='header'>
+  <div class='logo'>YouTube Clone</div>
+  <div class='search'>
+    <input type='text' placeholder='Search'/>
+  </div>
+  <div style='width:35px;height:35px;background:#444;border-radius:50%'></div>
+</div>
+
+<div class='container'>
+
+  <!-- SIDEBAR -->
+  <div class='sidebar'>
+    <div class='nav-item'>🏠 Home</div>
+    <div class='nav-item'>🔥 Trending</div>
+    <div class='nav-item'>📺 Subscriptions</div>
+    <div class='nav-item'>🎮 Gaming</div>
+    <div class='nav-item'>🎵 Music</div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <div class='main'>
+
+    <div class='grid'>
+
+      <b:section id='main' showaddelement='no'>
+        <b:widget id='Blog1' type='Blog' title='Videos'>
+          <b:includable id='main'>
+
+            <b:loop values='data:posts' var='post'>
+
+              <div class='card'>
+
+                <!-- YouTube Embed from post content -->
+                <b:if cond='data:post.body contains "youtube.com"'>
+                  <iframe expr:src='data:post.body'/>
+                </b:if>
+
+                <div class='info'>
+                  <div class='title'><data:post.title/></div>
+                  <div class='meta'><data:post.dateHeader/></div>
+                </div>
+
+              </div>
+
+            </b:loop>
+
+          </b:includable>
+        </b:widget>
+      </b:section>
+
+    </div>
+
+  </div>
+
+</div>
+
+</body>
+</html>
